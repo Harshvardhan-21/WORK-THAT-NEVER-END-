@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "SRV App",
+    "slug": "srv-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo/srv-logo.png",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ],
+    "splash": {
+      "image": "./assets/logo/srv-logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo/srv-logo.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/logo/srv-logo.png"
+    }
+  }
+}
