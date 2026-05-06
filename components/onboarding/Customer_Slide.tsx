@@ -149,10 +149,10 @@ export default function CustomerSlide({ onBack }: Props) {
         </View>
 
         <View style={s.trustBadges}>
+          <Text style={[s.trustSimple, { color: THEME.primary }]}>✦ 25 Years of Trust & Improvement ✦</Text>
           <View style={[s.trustBadge, { borderColor: THEME.primary, backgroundColor: 'transparent' }]}>
-            <Text style={[s.trustText, { color: THEME.primary }]}>✦ Trusted by 50,000+ Customers across North India ✦</Text>
+            <Text style={[s.trustText, { color: THEME.primary }]}>✦ Trusted by 50,000+ Customers ✦</Text>
           </View>
-          <Text style={[s.trustSimple, { color: THEME.primary }]}>25 Years of Trust & Improvement</Text>
         </View>
 
         <View style={s.actionButtons}>
@@ -192,7 +192,7 @@ const s = StyleSheet.create({
   gridIcon:          { width: ws(32), height: ws(32), borderRadius: ws(16), alignItems: 'center', justifyContent: 'center', marginBottom: hs(6) },
   gridIconText:      { fontSize: rf(16, 14, 18) },
   gridText:          { fontSize: rf(11, 10, 12), fontWeight: '600', color: '#374151', textAlign: 'center' },
-  trustBadges:       { width: '100%', gap: hs(6), alignItems: 'center', marginBottom: hs(16), marginTop: hs(24) },
+  trustBadges:       { width: '100%', gap: hs(8), alignItems: 'center', marginBottom: hs(32), marginTop: hs(4) },
   trustBadge:        { paddingVertical: hs(8), paddingHorizontal: ws(12), borderRadius: ws(18), borderWidth: 2, alignItems: 'center' },
   trustText:         { fontSize: rf(10, 9, 11), fontWeight: '700', textAlign: 'center', letterSpacing: 0.3 },
   trustSimple:       { fontSize: rf(11, 9, 13), fontWeight: '700', textAlign: 'center', letterSpacing: 0.4, marginTop: hs(2) },

@@ -8,7 +8,7 @@ import { ws, hs, rf } from '../../utils/responsive';
 import { counterboyURI } from '../../utils/roleImages';
 
 const AView = Animated.View as any;
-const CIRCLE_SIZE = ws(160);
+const CIRCLE_SIZE = ws(240);
 
 const THEME = {
   primary:   '#E8453C',
@@ -59,8 +59,8 @@ function Character() {
   return (
     <Image
       source={{ uri: counterboyURI }}
-      style={{ width: ws(220), height: hs(240) }}
-      resizeMode="cover"
+      style={{ width: ws(370), height: hs(390), marginTop: -hs(15) }}
+      resizeMode="contain"
     />
   );
 }
@@ -75,6 +75,7 @@ export default function CounterBoySlide({ onBack }: Props) {
   const descScale = useRef(new Animated.Value(0.85)).current;
   const descFade  = useRef(new Animated.Value(0)).current;
   const textSlide = useRef(new Animated.Value(20)).current;
+  const floatAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.parallel([
@@ -96,12 +97,22 @@ export default function CounterBoySlide({ onBack }: Props) {
       Animated.timing(glowAnim, { toValue: 1,   duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
       Animated.timing(glowAnim, { toValue: 0.7, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
     ])).start();
+
+    Animated.loop(Animated.sequence([
+      Animated.timing(floatAnim, { toValue: 1, duration: 2000, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
+      Animated.timing(floatAnim, { toValue: 0, duration: 2000, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
+    ])).start();
   }, []);
+
+  const floatY = floatAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -12]
+  });
 
   return (
     <AView style={[s.root, { opacity: fadeAnim }]}>
 
-      <AView style={[s.circleWrap, { transform: [{ scale: scaleAnim }] }]}>
+      <AView style={[s.circleWrap, { transform: [{ scale: scaleAnim }, { translateY: floatY }] }]}>
         <View style={[s.circle, { backgroundColor: THEME.circle }]}>
           <BgIcons />
           <Character />
@@ -138,22 +149,6 @@ export default function CounterBoySlide({ onBack }: Props) {
           </View>
         </View>
 
-        <View style={s.featuresList}>
-          <View style={[s.featureItem, { backgroundColor: THEME.light }]}>
-            <View style={[s.featureIcon, { backgroundColor: THEME.primary }]}>
-              <Text style={s.featureIconText}>💼</Text>
-            </View>
-            <Text style={s.featureText}>Customer Service</Text>
-          </View>
-          
-          <View style={[s.featureItem, { backgroundColor: '#FFE4E4' }]}>
-            <View style={[s.featureIcon, { backgroundColor: '#FF6B6B' }]}>
-              <Text style={s.featureIconText}>📊</Text>
-            </View>
-            <Text style={s.featureText}>Billing & Sales</Text>
-          </View>
-        </View>
-
         <View style={s.actionButtons}>
           {onBack && (
             <TouchableOpacity style={[s.switchButton, { borderColor: THEME.primary }]} onPress={onBack}>
@@ -173,7 +168,7 @@ export default function CounterBoySlide({ onBack }: Props) {
 
 const s = StyleSheet.create({
   root:              { flex: 1, alignItems: 'center', justifyContent: 'flex-start', backgroundColor: '#FFFFFF', paddingHorizontal: ws(20), paddingTop: hs(48) },
-  circleWrap:        { marginBottom: hs(28), shadowColor: '#E8453C', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.22, shadowRadius: 24, elevation: 14, marginTop: hs(8) },
+  circleWrap:        { marginBottom: hs(20), shadowColor: '#E8453C', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.22, shadowRadius: 24, elevation: 14, marginTop: hs(12) },
   circle:            { width: CIRCLE_SIZE, height: CIRCLE_SIZE, borderRadius: CIRCLE_SIZE / 2, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
   glowRing:          { position: 'absolute', width: CIRCLE_SIZE + ws(12), height: CIRCLE_SIZE + ws(12), borderRadius: (CIRCLE_SIZE + ws(12)) / 2, borderWidth: 1.5, opacity: 0.3, top: -ws(6), left: -ws(6) },
   card:              { alignItems: 'center', paddingHorizontal: ws(16), width: '100%' },
