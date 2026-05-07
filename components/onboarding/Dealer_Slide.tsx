@@ -113,7 +113,7 @@ export default function DealerSlide({ onBack }: Props) {
   return (
     <AView style={[s.root, { opacity: fadeAnim }]}>
 
-      <AView style={[s.circleWrap, { transform: [{ scale: scaleAnim }, { translateY: floatY }], opacity: glowAnim }]}>
+      <AView style={[s.circleWrap, { transform: [{ scale: scaleAnim }, { translateY: floatY }] }]}>
         <View style={[s.circle, { backgroundColor: THEME.circle }]}>
           <BgIcons />
           <Character />
