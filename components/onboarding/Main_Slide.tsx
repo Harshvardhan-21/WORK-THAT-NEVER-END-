@@ -176,9 +176,9 @@ const rc = StyleSheet.create({
 
 const ROLES = [
   { key: 'dealer'      as UserRole, label: 'DEALER',      sub: 'Grow your Business', color: '#D97706', bg: '#FFFBEB', border: '#FDE68A', image: dealerURI      },
-  { key: 'electrician' as UserRole, label: 'ELECTRICIAN', sub: 'Scan & earn',        color: '#1565C0', bg: '#EBF4FF', border: '#BFDBFE', image: electricianURI },
-  { key: 'user'        as UserRole, label: 'CUSTOMER',    sub: 'Browse products',    color: '#6B7C2D', bg: '#F5F7EB', border: '#D4E09A', image: customerURI    },
-  { key: 'counter-boy' as UserRole, label: 'COUNTER BOY', sub: 'Manage billing',     color: '#E8453C', bg: '#FFF5F5', border: '#FECACA', image: counterboyURI  },
+  { key: 'electrician' as UserRole, label: 'ELECTRICIAN', sub: 'Scan & Earn',        color: '#1565C0', bg: '#EBF4FF', border: '#BFDBFE', image: electricianURI },
+  { key: 'user'        as UserRole, label: 'CUSTOMER',    sub: 'Explore Products',    color: '#6B7C2D', bg: '#F5F7EB', border: '#D4E09A', image: customerURI    },
+  { key: 'counter-boy' as UserRole, label: 'COUNTER BOY', sub: 'Manage Customer',     color: '#E8453C', bg: '#FFF5F5', border: '#FECACA', image: counterboyURI  },
 ];
 
 // ─── Main Slide ───────────────────────────────────────────────────────────────

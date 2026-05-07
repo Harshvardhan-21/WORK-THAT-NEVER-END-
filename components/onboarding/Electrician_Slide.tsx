@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+// Electrician Slide - Blue Theme (#2563EB)
 import React, { useRef, useEffect } from 'react';
 import {
   View, Text, StyleSheet, Animated, Easing, TouchableOpacity, Image,
@@ -8,7 +9,7 @@ import { ws, hs, rf } from '../../utils/responsive';
 import { electricianURI } from '../../utils/roleImages';
 
 const AView = Animated.View as any;
-const CIRCLE_SIZE = ws(160);
+const CIRCLE_SIZE = ws(240);
 
 const THEME = {
   primary:   '#2563EB',
@@ -57,7 +58,7 @@ function Character() {
   return (
     <Image
       source={{ uri: electricianURI }}
-      style={{ width: ws(160), height: ws(160) }}
+      style={{ width: ws(300), height: hs(320) }}
       resizeMode="contain"
     />
   );
@@ -73,6 +74,7 @@ export default function ElectricianSlide({ onBack }: Props) {
   const descScale = useRef(new Animated.Value(0.85)).current;
   const descFade  = useRef(new Animated.Value(0)).current;
   const textSlide = useRef(new Animated.Value(20)).current;
+  const floatAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.parallel([
@@ -94,12 +96,19 @@ export default function ElectricianSlide({ onBack }: Props) {
       Animated.timing(glowAnim, { toValue: 1,   duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
       Animated.timing(glowAnim, { toValue: 0.7, duration: 1600, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
     ])).start();
+
+    Animated.loop(Animated.sequence([
+      Animated.timing(floatAnim, { toValue: 1, duration: 2000, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
+      Animated.timing(floatAnim, { toValue: 0, duration: 2000, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
+    ])).start();
   }, []);
+
+  const floatY = floatAnim.interpolate({ inputRange: [0, 1], outputRange: [0, -12] });
 
   return (
     <AView style={[s.root, { opacity: fadeAnim }]}>
 
-      <AView style={[s.circleWrap, { transform: [{ scale: scaleAnim }] }]}>
+      <AView style={[s.circleWrap, { transform: [{ scale: scaleAnim }, { translateY: floatY }] }]}>
         <View style={[s.circle, { backgroundColor: THEME.circle }]}>
           <BgIcons />
           <Character />
@@ -128,53 +137,56 @@ export default function ElectricianSlide({ onBack }: Props) {
 
         <View style={s.stepsRow}>
           <View style={[s.stepBox, { backgroundColor: THEME.primary }]}>
-            <Text style={s.stepIcon}>📱</Text>
+            <Svg width={ws(22)} height={ws(22)} viewBox="0 0 24 24" fill="none">
+              <Rect x="5" y="2" width="14" height="20" rx="3" stroke="#FFFFFF" strokeWidth="1.8" fill="none"/>
+              <Rect x="8" y="6" width="8" height="6" rx="1" stroke="#FFFFFF" strokeWidth="1.5" fill="none"/>
+              <Circle cx="12" cy="17" r="1.5" fill="#FFFFFF"/>
+            </Svg>
             <Text style={s.stepText}>Scan QR</Text>
           </View>
           <Text style={s.arrow}>→</Text>
           <View style={[s.stepBox, { backgroundColor: '#3B82F6' }]}>
-            <Text style={s.stepIcon}>⭐</Text>
+            <Svg width={ws(22)} height={ws(22)} viewBox="0 0 24 24" fill="none">
+              <Path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#FFFFFF" strokeWidth="1.8" fill="none" strokeLinejoin="round"/>
+            </Svg>
             <Text style={s.stepText}>Get Points</Text>
           </View>
           <Text style={s.arrow}>→</Text>
           <View style={[s.stepBox, { backgroundColor: '#60A5FA' }]}>
-            <Text style={s.stepIcon}>💰</Text>
+            <Svg width={ws(22)} height={ws(22)} viewBox="0 0 24 24" fill="none">
+              <Path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+            </Svg>
             <Text style={s.stepText}>Redeem</Text>
           </View>
         </View>
 
         <View style={s.statsRow}>
           <View style={[s.statBox, { backgroundColor: THEME.light }]}>
+            <Svg width={ws(24)} height={ws(24)} viewBox="0 0 24 24" fill="none">
+              <Rect x="2" y="6" width="20" height="14" rx="3" stroke={THEME.primary} strokeWidth="1.8" fill="none"/>
+              <Path d="M2 10h20" stroke={THEME.primary} strokeWidth="1.8" strokeLinecap="round"/>
+              <Circle cx="6" cy="15" r="1.5" fill={THEME.primary}/>
+              <Path d="M16 4H8" stroke={THEME.primary} strokeWidth="1.8" strokeLinecap="round"/>
+            </Svg>
             <Text style={[s.statNumber, { color: THEME.primary }]}>₹5L+</Text>
             <Text style={[s.statLabel, { color: THEME.primary }]}>REWARDS PAID</Text>
           </View>
           <View style={[s.statBox, { backgroundColor: THEME.light }]}>
+            <Svg width={ws(24)} height={ws(24)} viewBox="0 0 24 24" fill="none">
+              <Path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke={THEME.primary} strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+            </Svg>
             <Text style={[s.statNumber, { color: THEME.primary }]}>25K+</Text>
             <Text style={[s.statLabel, { color: THEME.primary }]}>ACTIVE MEMBERS</Text>
           </View>
         </View>
 
-        <View style={s.featuresList}>
-          <View style={[s.featureItem, { backgroundColor: THEME.light }]}>
-            <View style={[s.featureIcon, { backgroundColor: THEME.primary }]}>
-              <Text style={s.featureIconText}>📱</Text>
-            </View>
-            <Text style={s.featureText}>Scan & Earn</Text>
-          </View>
-          
-          <View style={[s.featureItem, { backgroundColor: '#DBEAFE' }]}>
-            <View style={[s.featureIcon, { backgroundColor: '#3B82F6' }]}>
-              <Text style={s.featureIconText}>💳</Text>
-            </View>
-            <Text style={s.featureText}>Daily Payouts</Text>
-          </View>
-        </View>
+        <Text style={[s.trustLine, { color: THEME.primary }]}>✦ 25 Years of Trust & Improvement ✦</Text>
 
         <View style={s.actionButtons}>
           {onBack && (
             <TouchableOpacity style={[s.switchButton, { borderColor: THEME.primary }]} onPress={onBack}>
-              <Text style={s.switchIcon}>⇄</Text>
-              <Text style={[s.switchButtonText, { color: THEME.primary }]}>Switch Role</Text>
+              <Text style={[s.switchIcon, { color: THEME.primary }]}>‹</Text>
+              <Text style={[s.switchButtonText, { color: THEME.primary }]}>Back</Text>
             </TouchableOpacity>
           )}
           <TouchableOpacity style={[s.continueButton, { backgroundColor: THEME.primary }]}>
@@ -190,7 +202,7 @@ export default function ElectricianSlide({ onBack }: Props) {
 const s = StyleSheet.create({
   root:              { flex: 1, alignItems: 'center', justifyContent: 'flex-start', backgroundColor: '#FFFFFF', paddingHorizontal: ws(20), paddingTop: hs(48) },
   circleWrap:        { marginBottom: hs(28), shadowColor: '#2563EB', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.22, shadowRadius: 24, elevation: 14, marginTop: hs(8) },
-  circle:            { width: CIRCLE_SIZE, height: CIRCLE_SIZE, borderRadius: CIRCLE_SIZE / 2, alignItems: 'center', justifyContent: 'flex-end', overflow: 'hidden' },
+  circle:            { width: CIRCLE_SIZE, height: CIRCLE_SIZE, borderRadius: CIRCLE_SIZE / 2, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
   glowRing:          { position: 'absolute', width: CIRCLE_SIZE + ws(12), height: CIRCLE_SIZE + ws(12), borderRadius: (CIRCLE_SIZE + ws(12)) / 2, borderWidth: 1.5, opacity: 0.3, top: -ws(6), left: -ws(6) },
   card:              { alignItems: 'center', paddingHorizontal: ws(16), width: '100%' },
   titleButton:       { paddingHorizontal: ws(32), paddingVertical: hs(8), borderRadius: ws(25), marginBottom: hs(12), shadowColor: '#2563EB', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8, elevation: 6 },
@@ -204,12 +216,12 @@ const s = StyleSheet.create({
   mainSubtitle:      { fontSize: rf(20, 18, 22), fontWeight: '900', textAlign: 'center' },
   cardDesc:          { fontSize: rf(12, 11, 13), color: '#6B7280', textAlign: 'center', lineHeight: rf(18, 16, 20), fontWeight: '500' },
   stepsRow:          { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', marginBottom: hs(12), gap: ws(8) },
-  stepBox:           { paddingVertical: hs(10), paddingHorizontal: ws(12), borderRadius: ws(10), alignItems: 'center', minWidth: ws(85) },
+  stepBox:           { paddingVertical: hs(10), paddingHorizontal: ws(12), borderRadius: ws(10), alignItems: 'center', minWidth: ws(85), gap: hs(4) },
   stepIcon:          { fontSize: rf(20, 18, 22), marginBottom: hs(4) },
   stepText:          { fontSize: rf(11, 10, 12), fontWeight: '700', color: '#FFFFFF' },
   arrow:             { fontSize: rf(16, 14, 18), color: '#9CA3AF', fontWeight: '700' },
-  statsRow:          { flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: hs(12), gap: ws(8) },
-  statBox:           { flex: 1, paddingVertical: hs(10), paddingHorizontal: ws(6), borderRadius: ws(10), alignItems: 'center' },
+  statsRow:          { flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: hs(8), gap: ws(8) },
+  statBox:           { flex: 1, paddingVertical: hs(10), paddingHorizontal: ws(6), borderRadius: ws(10), alignItems: 'center', gap: hs(2) },
   statNumber:        { fontSize: rf(16, 14, 18), fontWeight: '900', marginBottom: hs(2) },
   statLabel:         { fontSize: rf(9, 8, 10), fontWeight: '700', letterSpacing: 0.5 },
   featuresList:      { width: '100%', marginBottom: hs(20), gap: hs(8) },
@@ -217,10 +229,11 @@ const s = StyleSheet.create({
   featureIcon:       { width: ws(32), height: ws(32), borderRadius: ws(16), alignItems: 'center', justifyContent: 'center', marginRight: ws(10) },
   featureIconText:   { fontSize: rf(16, 14, 18) },
   featureText:       { fontSize: rf(12, 11, 13), fontWeight: '600', color: '#374151', flex: 1 },
-  actionButtons:     { flexDirection: 'row', width: '100%', gap: ws(12), paddingBottom: hs(16) },
-  switchButton:      { flex: 1, paddingVertical: hs(12), borderRadius: ws(25), borderWidth: 2, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', flexDirection: 'row', gap: ws(6) },
-  switchIcon:        { fontSize: rf(20, 18, 22), color: THEME.primary, fontWeight: '900' },
-  switchButtonText:  { fontSize: rf(13, 12, 14), fontWeight: '700', letterSpacing: 0.3 },
+  trustLine:         { fontSize: rf(11, 9, 13), fontWeight: '700', textAlign: 'center', letterSpacing: 0.4, marginBottom: hs(16), marginTop: hs(8) },
+  actionButtons:     { flexDirection: 'row', width: '100%', gap: ws(12), paddingBottom: hs(24) },
+  switchButton:      { flex: 1, paddingVertical: hs(12), borderRadius: ws(25), borderWidth: 2, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', flexDirection: 'row', gap: ws(8) },
+  switchIcon:        { fontSize: rf(18, 16, 20), color: THEME.primary, fontWeight: '900', lineHeight: rf(18, 16, 20), includeFontPadding: false, textAlignVertical: 'center' },
+  switchButtonText:  { fontSize: rf(13, 12, 14), fontWeight: '700', letterSpacing: 0.3, lineHeight: rf(18, 16, 20) },
   continueButton:    { flex: 1, paddingVertical: hs(12), borderRadius: ws(25), alignItems: 'center', justifyContent: 'center', shadowColor: '#2563EB', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8, elevation: 6 },
   continueButtonText:{ fontSize: rf(13, 12, 14), fontWeight: '700', color: '#FFFFFF', letterSpacing: 0.3 },
 });
