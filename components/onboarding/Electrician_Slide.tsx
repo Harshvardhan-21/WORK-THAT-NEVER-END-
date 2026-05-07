@@ -124,11 +124,8 @@ export default function ElectricianSlide({ onBack }: Props) {
         <AView style={[s.contentCard, { opacity: descFade, transform: [{ scale: descScale }] }]}>
           <View style={s.gradientAccent} />
           <View style={s.contentInner}>
-            <View style={s.titleRow}>
-              <Text style={[s.mainTitle, { color: '#1F2937' }]}>Scan Products</Text>
-              <Text style={[s.dividerDot, { color: THEME.primary }]}>•</Text>
-              <Text style={[s.mainSubtitle, { color: THEME.primary }]}>Earn Rewards</Text>
-            </View>
+            <Text style={[s.mainTitle, { color: '#1F2937', textAlign: 'center' }]}>Scan Products</Text>
+            <Text style={[s.mainSubtitle, { color: THEME.primary, textAlign: 'center' }]}>Earn Rewards</Text>
             <Text style={s.cardDesc}>
               Get paid instantly for every SRV product you install
             </Text>
@@ -209,7 +206,8 @@ const s = StyleSheet.create({
   titleButtonText:   { fontSize: rf(13, 11, 15), fontWeight: '900', color: '#FFFFFF', textAlign: 'center', letterSpacing: 1 },
   contentCard:       { width: '100%', backgroundColor: '#FFFFFF', paddingHorizontal: ws(18), paddingVertical: hs(16), borderRadius: ws(16), marginBottom: hs(12), borderWidth: 2, borderColor: THEME.light, shadowColor: THEME.primary, shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.12, shadowRadius: 16, elevation: 8, position: 'relative', overflow: 'hidden' },
   gradientAccent:    { position: 'absolute', top: 0, left: 0, right: 0, height: 3, backgroundColor: THEME.primary },
-  contentInner:      { gap: hs(8) },
+  contentInner:      { gap: hs(4) },
+  ampersand:         { fontSize: rf(11, 10, 12), fontWeight: '700', textAlign: 'center', opacity: 0.6 },
   titleRow:          { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: ws(8), flexWrap: 'wrap' },
   mainTitle:         { fontSize: rf(20, 18, 22), fontWeight: '900', textAlign: 'center' },
   dividerDot:        { fontSize: rf(24, 22, 26), fontWeight: '900', opacity: 0.4 },
